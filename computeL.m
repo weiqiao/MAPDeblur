@@ -4,10 +4,12 @@ function [ L ] = computeL( f,I,psi_x,psi_y,gamma )
 [m,n]=size(I);
 f(m,n)=0;
 f_f=fft2(f);
-fenzi=conj(f_f).*fft2(I)*50+gamma*(-1i)*fft2(psi_x)+gamma*(-1i)*fft2(psi_y);
+diff_x=[1,-1];
+diff_y=[1,-1]';
+fenzi=conj(f_f).*fft2(I)*50+gamma*fftshift(fft2(conv2(psi_x,diff_x,'same')))+gamma*fftshift(fft2(conv2(psi_y,diff_y,'same')));
 fenmu=conj(f_f).*f_f*50+2*gamma;
 L=ifft2(fenzi./fenmu);
-L=real(L);%or abs(L) 但会不收敛
+L=real(L);%abs(L)? 不收敛
 
 
 %funciton end

@@ -1,6 +1,6 @@
 function [ L, f ] = MAPDeblur( filePath, kernelSize)
 %MAPDEBLUR Summary of this function goes here
-%   Detailed explanation goes here
+%   调用方式：MAPDeblur('picassoBlurImage.png',27);
 I=imread(filePath);%3d
 omega=getOmegaRegion(I,kernelSize);
 I=double(I)/255;%scale to [0,1]
@@ -54,7 +54,8 @@ while 1
     lambda1=lambda1/1.2;
     lambda2=lambda2/1.5;
     gamma=gamma*2;
-    imwrite(f*255,['kernel_',int2str(iterator),filePath]);
+    rate=1/max(max(f));
+    imwrite(f*rate,['kernel_',int2str(iterator),filePath]);
     iterator=iterator+1;
     fprintf('gamma:%d,delta_f:%f\n',gamma,delta_f);
 end
