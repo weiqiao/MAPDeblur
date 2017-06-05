@@ -2,11 +2,16 @@ function [ L, f ] = MAPDeblur( filePath, kernelSize)
 %MAPDEBLUR Summary of this function goes here
 %   调用方式：MAPDeblur('picassoBlurImage.png',27);
 I=imread(filePath);%3d
+I=I(110:210,470:670,:);
 omega=getOmegaRegion(I,kernelSize);
 I=double(I)/255;%scale to [0,1]
 
 L=I;
 p_L=L;
+
+%PSF=im2double(imread('picassoBlurImage_kernel.png'));
+%PSF=PSF(:,:,1);
+%f=PSF/sum(PSF(:));
 f=eye(kernelSize,kernelSize)/(kernelSize*kernelSize);
 p_f=f;
 [m,n,~]=size(I);
