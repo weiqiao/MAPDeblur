@@ -21,7 +21,8 @@ gamma=1;
 while 1
     %update L and f
     for dimension=1:3
-        while 1
+        times=0;
+        while times<5
             %update L
             [psi_x,psi_y]=updatePSI(lambda1,lambda2,omega,gamma,L(:,:,dimension),I(:,:,dimension));
             %compute L
@@ -38,6 +39,7 @@ while 1
             p_L=L;
             p_psi_x=psi_x;
             p_psi_y=psi_y;
+            times=times+1;
             fprintf('update L:%f\n',delta_L);
         end
     end
