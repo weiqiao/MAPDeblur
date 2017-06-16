@@ -1,6 +1,8 @@
 function [ psi_x,psi_y ] = updatePSI( lambda1,lambda2,omega,gamma,L,I )
 %UPDATEPSI Summary of this function goes here
 %   Detailed explanation goes here
+
+[row,col]=size(I);
 diff_x=[1,-1];
 diff_y=[1,-1]';
 pI_x=conv2(I,diff_x,'same');
@@ -12,7 +14,6 @@ b=5.0;
 k=2.7*255;
 lt=(k-sqrt(k^2-4*a*b))/(2*a);
 
-[row,col]=size(I);
 psi_x=zeros(row,col);
 psi_y=zeros(row,col);
 %assume abs(x)>lt
