@@ -3,12 +3,10 @@ function [ psi_x,psi_y ] = updatePSI( lambda1,lambda2,omega,gamma,L,I )
 %   Detailed explanation goes here
 
 [row,col]=size(I);
-diff_x=[1,-1];
-diff_y=[1,-1]';
-pI_x=conv2(I,diff_x,'same');
-pI_y=conv2(I,diff_y,'same');
-pL_x=conv2(L,diff_x,'same');
-pL_y=conv2(L,diff_y,'same');
+pI_x=[diff(I, 1, 2), I(:,1) - I(:,col)];
+pI_y=[diff(I, 1, 1); I(1,:) - I(row,:)];
+pL_x=[diff(L, 1, 2), L(:,1) - L(:,col)];
+pL_y=[diff(L, 1, 1); L(1,:) - L(row,:)];
 a=6.1*10^-4*255*255;
 b=5.0;
 k=2.7*255;

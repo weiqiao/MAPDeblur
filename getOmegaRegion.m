@@ -4,12 +4,19 @@ function [ omega ] = getOmegaRegion( I, kernelSize )
 
 [m,n,~]=size(I);
 omega=zeros(m,n);
-padding=(kernelSize-1)/2;
+padding=floor(kernelSize/2);
 kernelArea=kernelSize*kernelSize;
 gray=rgb2gray(I);
+
+gray = padarray(gray, [1 1] * padding, 'replicate', 'both');
+[row,col]=size(gray);
+rowStart=1+padding;
+rowEnd=row-padding;
+colStart=1+padding;
+colEnd=col-padding;
 t=5;%threshold
-for i = 1+padding:m-padding%row
-    for j = 1+padding:n-padding%col
+for i = rowStart:rowEnd
+    for j = colStart:colEnd
         part=gray(i-padding:i+padding,j-padding:j+padding);
         rows = reshape(part,kernelArea,1);
         if(std(double(rows))<t)
@@ -17,8 +24,6 @@ for i = 1+padding:m-padding%row
         end
     end
 end
-
-
 %function end
 end
 
