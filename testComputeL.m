@@ -5,13 +5,13 @@ f=PSF/sum(PSF(:));
 I=im2double(imread('picassoBlurImage.png'));
 L=im2double(imread('picassoSdOut.png'));
 
-diff_x=[1,-1];
-diff_y=[1,-1]';
+[row,col,~]=size(I);
 
-gamma=1;
+gamma=64;
 for dimension=1:3
-    psi_x=conv2(L(:,:,dimension),diff_x,'same');
-    psi_y=conv2(L(:,:,dimension),diff_y,'same');
+    Lc=L(:,:,dimension);
+    psi_x=[diff(Lc, 1, 2), Lc(:,1) - Lc(:,col)];
+    psi_y=[diff(Lc, 1, 1); Lc(1,:) - Lc(row,:)];
     L(:,:,dimension)=computeL(f,I(:,:,dimension),psi_x,psi_y,gamma);
 end
 

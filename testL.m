@@ -1,10 +1,8 @@
-I=im2double(imread('picassoBlurImage.png'));%3d
-%I=rgb2gray(I);
-%I=I(110:210,470:670,:);
+I=imread('picassoBlurImage.png');%3d
 if ~exist('omega','var')
     omega=getOmegaRegion(I,27);
 end
-
+%imwrite(omega,'omega.png');
 PSF=im2double(imread('picassoBlurImage_kernel.png'));
 PSF=PSF(:,:,1);
 f=PSF/sum(PSF(:));
@@ -12,14 +10,14 @@ f=PSF/sum(PSF(:));
 [m,n,~]=size(I);
 disp('start iteration');
 %para init
-% repeat=5;
-% lambda1=0.008/(1.2^repeat);
-% lambda2=0.2/(1.5^repeat);
-% gamma=1*2^repeat;
-lambda1=0.008;
-lambda2=0.2;
-gamma=1;
-L=I;
+repeat=5;
+lambda1=0.008/(1.2^repeat);
+lambda2=0.2/(1.5^repeat);
+gamma=1*2^repeat;
+% lambda1=0.008;
+% lambda2=0.2;
+% gamma=1;
+L=imread('picassoSdOut.png');
 iterator=0;
 while(iterator<5)
     iterator=iterator+1;

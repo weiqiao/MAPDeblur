@@ -7,9 +7,9 @@ pI_x=[diff(I, 1, 2), I(:,1) - I(:,col)];
 pI_y=[diff(I, 1, 1); I(1,:) - I(row,:)];
 pL_x=[diff(L, 1, 2), L(:,1) - L(:,col)];
 pL_y=[diff(L, 1, 1); L(1,:) - L(row,:)];
-a=6.1*10^-4*255*255;
+a=6.1*10^-4;
 b=5.0;
-k=2.7*255;
+k=2.7;
 lt=(k-sqrt(k^2-4*a*b))/(2*a);
 
 psi_x=zeros(row,col);
@@ -74,6 +74,7 @@ for i=1:row
         end
     end
 end
+
 
 %function end
 end
