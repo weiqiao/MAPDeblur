@@ -18,11 +18,13 @@ end
 
 lambda1=0.008;
 lambda2=0.2;
-gamma=1;
+gamma=1e10;
+tol = 1e-5;
 p_delta_L=inf;
 
 if ~exist('omega','var')
     omega=getOmegaRegion(I,27);
+    imwrite(omega,['omega.png']);
 end
 disp('start iteration');
 iterator=1;
@@ -35,11 +37,11 @@ while(iterator < 10)
     delta_L=LC-p_LC;
     delta_L=sqrt(sum(sum(delta_L.^2)));
     fprintf('iterator:%d,(%f,%f,%f)\n',iterator,delta_L(:,:,1),delta_L(:,:,2),delta_L(:,:,3));
-    if(delta_L(:,:,1)<10 && delta_L(:,:,2)<10 && delta_L(:,:,3)<10 || sum(delta_L) > p_delta_L)
+    if(delta_L(:,:,1)<tol && delta_L(:,:,2)<tol && delta_L(:,:,3)<tol)
         LC=p_LC;
         break;
     end
-    p_LC=LC;
+    %p_LC=LC;
     p_delta_L=sum(delta_L);
     imwrite(LC,['out_',int2str(iterator),'picassoBlurImage.png']);
     iterator=iterator+1;

@@ -1,4 +1,4 @@
-function [ omega ] = getOmegaRegion( I, kernelSize )
+function [ omega ] = getOmegaRegion( I, kernelSize, t )
 %GETOMEGAREGION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -14,12 +14,11 @@ rowStart=1+padding;
 rowEnd=row-padding;
 colStart=1+padding;
 colEnd=col-padding;
-t=5;%threshold
 for i = rowStart:rowEnd
     for j = colStart:colEnd
         part=gray(i-padding:i+padding,j-padding:j+padding);
         rows = reshape(part,kernelArea,1);
-        if(std(rows)<t)
+        if(std(double(rows))<t)
             omega(i-padding,j-padding)=1;
         end
     end
