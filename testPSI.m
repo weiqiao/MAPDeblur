@@ -2,12 +2,11 @@ PSF=im2double(imread('picassoBlurImage_kernel.png'));
 PSF=PSF(:,:,1);
 f=PSF/sum(PSF(:));
 
-I=im2double(imread('picassoBlurImage.png'));
+I=imread('picassoBlurImage.png');
 L=im2double(imread('picassoSdOut.png'));
 
 diff_x=[1,-1];
 diff_y=[1,-1]';
-LC=I;
 p_LC=L;
 psi_x=L;
 psi_y=L;
@@ -21,18 +20,20 @@ lambda2=0.2;
 gamma=1e10;
 tol = 1e-5;
 p_delta_L=inf;
-
 if ~exist('omega','var')
     omega=getOmegaRegion(I,27);
     imwrite(omega,['omega.png']);
 end
+I = im2double(I);
+LC = I;
 disp('start iteration');
 iterator=1;
-while(iterator < 10)
+while(iterator < 2)
     for dimension=1:3
         [psi_x_c,psi_y_c]=updatePSI(lambda1,lambda2,omega,gamma,LC(:,:,dimension),I(:,:,dimension));
         %compute L
         LC(:,:,dimension)=computeL(f,I(:,:,dimension),psi_x_c,psi_y_c,gamma);
+        LC = im2double(LC);
     end
     delta_L=LC-p_LC;
     delta_L=sqrt(sum(sum(delta_L.^2)));

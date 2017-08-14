@@ -1,4 +1,4 @@
-function [ omega ] = getOmegaRegion( I, kernelSize, t )
+function [ omega ] = getOmegaRegion( I, kernelSize)
 %GETOMEGAREGION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -7,7 +7,7 @@ omega=zeros(m,n);
 padding=floor(kernelSize/2);
 kernelArea=kernelSize*kernelSize;
 gray=rgb2gray(I);
-
+t = 5;
 gray = padarray(gray, [1 1] * padding, 'replicate', 'both');
 [row,col]=size(gray);
 rowStart=1+padding;
