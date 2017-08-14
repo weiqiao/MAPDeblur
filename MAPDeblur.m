@@ -19,6 +19,7 @@ lambda1=0.008;
 lambda2=0.2;
 
 tol = 1e-5;
+tol_f = 1e-2;
 %para init
 L=I;
 p_L=L;
@@ -74,7 +75,7 @@ while 1
     f=updateF(L,f,I);
     delta_f=f-p_f;
     delta_f=sqrt(sum(sum(delta_f.^2)));
-    if(delta_f<tol)
+    if(delta_f<tol_f)
         break;
     end
     lambda1=lambda1/1.2;

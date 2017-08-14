@@ -22,16 +22,21 @@ tol = 1e-5;
 p_delta_L=inf;
 if ~exist('omega','var')
     omega=getOmegaRegion(I,27);
-    imwrite(omega,['omega.png']);
+    %imwrite(omega,['omega.png']);
 end
 I = im2double(I);
 LC = I;
 disp('start iteration');
 iterator=1;
+[row,col,~]=size(I);
+
 while(iterator < 2)
     for dimension=1:3
-        [psi_x_c,psi_y_c]=updatePSI(lambda1,lambda2,omega,gamma,LC(:,:,dimension),I(:,:,dimension));
+        [psi_x_c,psi_y_c]=updatePSI(lambda1,lambda2,omega,gamma,L(:,:,dimension),I(:,:,dimension));
         %compute L
+        Lc=LC(:,:,dimension);
+        psi_x=[diff(Lc, 1, 2), Lc(:,1) - Lc(:,col)];
+        psi_y=[diff(Lc, 1, 1); Lc(1,:) - Lc(row,:)];
         LC(:,:,dimension)=computeL(f,I(:,:,dimension),psi_x_c,psi_y_c,gamma);
         LC = im2double(LC);
     end
@@ -42,7 +47,7 @@ while(iterator < 2)
         LC=p_LC;
         break;
     end
-    %p_LC=LC;
+    p_LC=LC;
     p_delta_L=sum(delta_L);
     imwrite(LC,['out_',int2str(iterator),'picassoBlurImage.png']);
     iterator=iterator+1;
