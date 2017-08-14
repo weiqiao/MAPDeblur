@@ -19,7 +19,7 @@ for i = rowStart:rowEnd
     for j = colStart:colEnd
         part=gray(i-padding:i+padding,j-padding:j+padding);
         rows = reshape(part,kernelArea,1);
-        if(std(rows)<t)
+        if(std(double(rows))<t)
             omega(i-padding,j-padding)=1;
         end
     end
