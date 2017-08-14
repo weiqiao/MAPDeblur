@@ -5,12 +5,12 @@ lambda=1;
 [kernelSize,~]=size(f);
 rel_tol=0.02;
 
-diff_x=[1,-1];
-diff_y=[1,-1]';
-L_x=conv2(L,diff_x,'same');
-L_y=conv2(L,diff_y,'same');
-I_x=conv2(I,diff_x,'same');
-I_y=conv2(I,diff_y,'same');
+% diff_x=[1,-1];
+% diff_y=[1,-1]';
+% L_x=conv2(L,diff_x,'same');
+% L_y=conv2(L,diff_y,'same');
+% I_x=conv2(I,diff_x,'same');
+% I_y=conv2(I,diff_y,'same');
 
 % [A1,~,y1]=conv2multiple_topN(L,f,I);
 % [A2,~,y2]=conv2multiple_topN(L_x,f,I_x);
