@@ -8,24 +8,24 @@ I=rgb2gray(I);
 
 PSF=im2double(imread('picassoBlurImage_kernel.png'));
 PSF=PSF(:,:,1);
-f=PSF/sum(PSF(:));
-% f=eye(kernelSize,kernelSize)/(kernelSize);
+%f=PSF/sum(PSF(:));
+f=eye(kernelSize,kernelSize)/(kernelSize);
 p_f=f;
 [m,n,~]=size(I);
 p_psi_x=zeros(m,n);
 p_psi_y=zeros(m,n);
 iterator=1;
 lambda1=0.008;
-lambda2=0.2;
+lambda2=10;%0.2;
 
 tol = 1e-5;
 tol_f = 1e-2;
 %para init
 L=I;
 p_L=L;
-double_gamma_itr = 3;
+double_gamma_itr = 10;
 disp('start iteration');
-while 1
+for nnn=1:1,
     %update L and f
     %p_delta_L=inf;
     inner_itr = 0;
