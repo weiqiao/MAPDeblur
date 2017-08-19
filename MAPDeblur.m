@@ -23,7 +23,7 @@ tol_f = 1e-2;
 %para init
 L=I;
 p_L=L;
-double_gamma_itr = 10;
+double_gamma_itr = 1;
 disp('start iteration');
 for nnn=1:1,
     %update L and f
@@ -31,18 +31,21 @@ for nnn=1:1,
     inner_itr = 0;
     gamma=1;
     while 1
-        %update L
+        
         inner_itr = inner_itr + 1;
-        [psi_x,psi_y]=updatePSI(lambda1,lambda2,omega,gamma,L,I);
-        %compute L
-        L=computeL(f,I,psi_x,psi_y,gamma);
+        for dim = 1:1,
+            %update L
+            [psi_x,psi_y]=updatePSI(lambda1,lambda2,omega,gamma,L(:,:,dim),I(:,:,dim));
+            %compute L
+            L(:,:,dim)=computeL(f,I(:,:,dim),psi_x,psi_y,gamma);
+        end;
         delta_L=L-p_L;
         delta_L=sqrt(sum(sum(delta_L.^2)));
         delta_psi_x=psi_x-p_psi_x;
         delta_psi_x=sqrt(sum(sum(delta_psi_x.^2)));
         delta_psi_y=psi_y-p_psi_y;
         delta_psi_y=sqrt(sum(sum(delta_psi_y.^2)));
-        if(delta_L<tol || delta_psi_x<tol || delta_psi_y<tol)
+        if(max(delta_L)<tol || delta_psi_x<tol || delta_psi_y<tol)
             break;
         end
         %{

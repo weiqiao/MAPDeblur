@@ -97,7 +97,8 @@ for i=1:row
         result(3)=(lambda2*omega(i,j)+gamma)*x(3)^2-(2*lambda2*pI_y(i,j)*omega(i,j)+2*gamma*pL_y(i,j)+k*lambda1)*x(3)+(lambda2*omega(i,j)*pI_y(i,j)^2+gamma*pL_y(i,j)^2);
         
         x_min=min(result);
-        for k=1:3
+        psi_y(i,j)=x(3);
+        for k=1:2
             if(x_min == result(k))
                 psi_y(i,j)=x(k);
                 break;
